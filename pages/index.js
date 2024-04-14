@@ -1,25 +1,30 @@
-import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
+import { getMembers } from '../api/memberData';
+import MemberCard from '../components/MemberCard';
 
 function Home() {
   const { user } = useAuth();
+  const [member, setMember] = useState([]);
+
+  const getAllMembers = () => {
+    getMembers(user.uid).then(setMember);
+  };
+
+  useEffect(() => {
+    getAllMembers();
+  }, []);
 
   return (
     <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
+      className="text-center my-4"
     >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+      <h1>{user.displayName}, here are the members of your team. </h1>
+      <div className="d-flex flex-wrap">
+        {member.map((mem) => (
+          <MemberCard key={mem.firebaseKey} memberObj={mem} onUpdate={getAllMembers} />
+        ))}
+      </div>
     </div>
   );
 }
