@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { useAuth } from '../../utils/context/authContext';
-import { createMember, updateMember } from '../../api/memberData';
+import { createMember, getMembers, updateMember } from '../../api/memberData';
 
 const initialState = {
   name: '',
@@ -13,13 +13,15 @@ const initialState = {
 
 export default function MemberForm({ obj }) {
   const { user } = useAuth();
-  const [formInput] = useState({ ...initialState, uid: user.uid });
-  // const [member, setMember] = useState([]);
+  const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
+  const [member, setMember] = useState([]);
   const router = useRouter();
+
+  console.warn('member:', member);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { formInput };
+    const payload = { ...formInput };
     if (obj.firebaseKey) {
       updateMember(payload).then(() => router.push('/'));
     } else {
@@ -32,38 +34,57 @@ export default function MemberForm({ obj }) {
     }
   };
 
+  useEffect(() => {
+    getMembers(user.uid).then(setMember);
+    if (obj.firebaseKey) setFormInput(obj);
+  }, [obj, user]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Form.Group md="4" controlId="validationCustom01">
-          <Form.Label>First name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="First name"
-            defaultValue="Mark"
-          />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group md="4" controlId="validationCustom02">
-          <Form.Label>Last name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Last name"
-            defaultValue="Otto"
-          />
-        </Form.Group> {/* Closing tag added here */}
-      </Row>
-      <Form.Group className="mb-3">
-        <Form.Check
+      <h3>{obj.firebaseKey ? 'Update' : 'Create'} Member</h3>
+
+      <Form.Group md="4" controlId="validationCustom01">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
           required
-          label="Agree to terms and conditions"
-          feedback="You must agree before submitting."
-          feedbackType="invalid"
+          type="text"
+          placeholder="Enter Name"
+          name="name"
+          value={formInput.name}
+          onChange={handleChange}
         />
       </Form.Group>
-      <Button type="submit">Submit form</Button>
+      <Form.Group md="4" controlId="validationCustom02">
+        <Form.Label>Picture</Form.Label>
+        <Form.Control
+          required
+          type="text"
+          placeholder="Enter image URL"
+          name="image"
+          value={formInput.image}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group md="4" controlId="validationCustom02">
+        <Form.Label>Role</Form.Label>
+        <Form.Control
+          required
+          type="text"
+          placeholder="Enter member's Role"
+          name="role"
+          value={formInput.role}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
     </Form>
   );
 }
@@ -71,5 +92,12 @@ export default function MemberForm({ obj }) {
 MemberForm.propTypes = {
   obj: PropTypes.shape({
     firebaseKey: PropTypes.string,
-  }).isRequired,
+    name: PropTypes.string,
+    role: PropTypes.string,
+    image: PropTypes.string,
+  }),
+};
+
+MemberForm.defaultProps = {
+  obj: initialState,
 };

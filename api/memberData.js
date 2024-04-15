@@ -14,15 +14,15 @@ const getMembers = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteMember = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/member.json?orderBy="uid"&equalTo="${uid}"`, {
-    method: 'GET',
+const deleteMember = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/member/${firebaseKey}.json`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve((data)))
     .catch(reject);
 });
 
