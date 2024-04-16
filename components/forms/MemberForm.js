@@ -4,20 +4,21 @@ import { Button, Form } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { useAuth } from '../../utils/context/authContext';
 import { createMember, getMembers, updateMember } from '../../api/memberData';
+import { getTeams } from '../../api/teamData';
 
 const initialState = {
   name: '',
   image: '',
   role: '',
+  team: '',
 };
 
 export default function MemberForm({ obj }) {
   const { user } = useAuth();
   const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
-  const [member, setMember] = useState([]);
+  const [, setMember] = useState([]);
+  const [teams, setTeams] = useState([]);
   const router = useRouter();
-
-  console.warn('member:', member);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +34,10 @@ export default function MemberForm({ obj }) {
       });
     }
   };
+
+  useEffect(() => {
+    getTeams(user.uid).then(setTeams);
+  }, [obj, user]);
 
   useEffect(() => {
     getMembers(user.uid).then(setMember);
@@ -81,6 +86,28 @@ export default function MemberForm({ obj }) {
           placeholder="Enter member's Role"
           name="role"
           value={formInput.role}
+          onChange={handleChange}
+        />
+        <option value="">Select a Team</option>
+        {
+            teams.map((team) => (
+              <option
+                key={team.firebaseKey}
+                value={team.firebaseKey}
+              >
+                {team.name}
+              </option>
+            ))
+          }
+      </Form.Group>
+      <Form.Group md="4" controlId="validationCustom02">
+        <Form.Label>Team</Form.Label>
+        <Form.Select
+          required
+          type="text"
+          placeholder="Enter image URL"
+          name="team_id"
+          value={formInput.team_id}
           onChange={handleChange}
         />
       </Form.Group>
