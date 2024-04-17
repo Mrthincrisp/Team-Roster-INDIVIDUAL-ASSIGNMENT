@@ -26,7 +26,9 @@ export default function MemberCard({ memberObj, onUpdate }) {
         <Card.Title>{memberObj.name}</Card.Title>
         <Card.Text>
           <p>Role: {memberObj.role}</p>
-          <p>Team: {teamAndMember.teamObj.team_name}</p>
+          {teamAndMember.teamObj && (
+            <p>Team: {teamAndMember.teamObj.team_name || 'Unknown'}</p>
+          )}
         </Card.Text>
         <Link href={`/member/edit/${memberObj.firebaseKey}`} passHref>
           <Button variant="primary">Edit</Button>
@@ -36,7 +38,7 @@ export default function MemberCard({ memberObj, onUpdate }) {
     </Card>
   );
 }
-
+// {teamAndMember.teamObj.team_name}
 MemberCard.propTypes = {
   memberObj: PropTypes.shape({
     image: PropTypes.string,
