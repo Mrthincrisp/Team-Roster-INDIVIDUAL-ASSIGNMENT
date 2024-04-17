@@ -1,28 +1,26 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
-import MemberCard from '../components/MemberCard';
-import { getMembers } from '../api/memberData';
+import { getTeams } from '../api/teamData';
 import { useAuth } from '../utils/context/authContext';
+import TeamCard from '../components/TeamCard';
 
-export default function team() {
+export default function Team() {
   const { user } = useAuth();
-  const [members, setMembers] = useState([]);
+  const [teams, setTeams] = useState([]);
 
-  const getAllMembers = () => {
-    getMembers(user.uid).then(setMembers);
+  const getAllTeams = () => {
+    getTeams(user.uid).then(setTeams);
   };
 
   useEffect(() => {
-    getAllMembers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getAllTeams();
+  });
 
   return (
     <>
       <h1>{user.displayName}, here are the teams. </h1>
       <div className="d-flex flex-wrap">
-        {members.map((mem) => (
-          <MemberCard key={mem.firebaseKey} memberObj={mem} onUpdate={getAllMembers} />
+        {teams.map((team) => (
+          <TeamCard key={team.firebaseKey} teamObj={team} onUpdate={getAllTeams} />
         ))}
       </div>
     </>

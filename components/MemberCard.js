@@ -38,7 +38,7 @@ export default function MemberCard({ memberObj, onUpdate }) {
     </Card>
   );
 }
-// {teamAndMember.teamObj.team_name}
+
 MemberCard.propTypes = {
   memberObj: PropTypes.shape({
     image: PropTypes.string,
@@ -48,4 +48,3 @@ MemberCard.propTypes = {
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
-//  {//}
