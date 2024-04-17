@@ -1,0 +1,76 @@
+import React, { useEffect, useState } from 'react';
+import { PropTypes } from 'prop-types';
+import { Button, Form } from 'react-bootstrap';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../utils/context/authContext';
+import { createTeam, getTeams, updateTeam } from '../../api/teamData';
+
+const initialState = {
+  team_name: '',
+
+};
+
+export default function TeamForm({ obj }) {
+  const { user } = useAuth();
+  const [formInput, SetFormInput] = useState({ ...initialState, uid: user.uid });
+  const [, setTeams] = useState([]);
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = { ...formInput };
+    if (obj.firebaseKey) {
+      updateTeam(payload).then(() => router.push('/team'));
+    } else {
+      createTeam(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+        updateTeam(patchPayload).then(() => {
+          router.push('/team');
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    getTeams(user.uid).then(setTeams);
+    if (obj.firebaseKey) SetFormInput(obj);
+  }, [obj, user]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    SetFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <h3>{obj.firebaseKey ? 'Update' : 'Create'} Team</h3>
+
+      <Form.Group>
+        <Form.Label>Team Name</Form.Label>
+        <Form.Control
+          required
+          type="text"
+          placeholder="Name the Team"
+          name="team_name"
+          value={formInput.team_name}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Team</Button>
+    </Form>
+  );
+}
+
+TeamForm.propTypes = {
+  obj: PropTypes.shape({
+    firebaseKey: PropTypes.string,
+    team_name: PropTypes.string,
+  }),
+};
+
+TeamForm.defaultProps = {
+  obj: initialState,
+};
