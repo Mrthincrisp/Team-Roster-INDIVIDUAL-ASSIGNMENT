@@ -17,13 +17,13 @@ export default function Team() {
   }, []);
 
   return (
-    <>
-      <h1>{user.displayName}, here are the teams. </h1>
-      <div className="d-flex flex-wrap">
+    <div className="home-container">
+      <h1 className="text"> Welcome, {user.displayName}! Here are your teams. </h1>
+      <div className="display-container">
         {teams.map((team) => (
-          <TeamCard key={team.firebaseKey} teamObj={team} onUpdate={getAllTeams} />
+          <TeamCard className="card" key={team.firebaseKey} teamObj={team} onUpdate={getAllTeams} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

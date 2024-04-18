@@ -21,19 +21,21 @@ export default function MemberCard({ memberObj, onUpdate }) {
 
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img src={memberObj.image} />
+      <Card.Img src={memberObj.image} className="thumbnail-img" />
       <Card.Body>
-        <Card.Title>{memberObj.name}</Card.Title>
+        <Card.Title className="text-card">{memberObj.name}</Card.Title>
         <Card.Text>
           <p>Role: {memberObj.role}</p>
           {teamAndMember.teamObj && (
             <p>Team: {teamAndMember.teamObj.team_name || 'Unknown'}</p>
           )}
         </Card.Text>
-        <Link href={`/member/edit/${memberObj.firebaseKey}`} passHref>
-          <Button variant="primary">Edit</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisMember}>Delete</Button>
+        <div className="button-container">
+          <Link href={`/member/edit/${memberObj.firebaseKey}`} passHref>
+            <Button className="button" variant="primary">Edit</Button>
+          </Link>
+          <Button className="button" variant="danger" onClick={deleteThisMember}>Delete</Button>
+        </div>
       </Card.Body>
     </Card>
   );

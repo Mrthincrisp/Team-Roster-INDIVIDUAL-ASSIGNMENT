@@ -45,11 +45,11 @@ export default function TeamForm({ obj }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h3>{obj.firebaseKey ? 'Update' : 'Create'} Team</h3>
+    <Form className="custom-form" onSubmit={handleSubmit}>
+      <h3 className="text">{obj.firebaseKey ? 'Update' : 'Create'} Team</h3>
 
       <Form.Group>
-        <Form.Label>Team Name</Form.Label>
+        <Form.Label className="text">Team Name</Form.Label>
         <Form.Control
           required
           type="text"
@@ -61,6 +61,7 @@ export default function TeamForm({ obj }) {
       </Form.Group>
 
       <Form.Check
+        className="switch-text"
         type="switch"
         id="privacy"
         name="privacy"
@@ -73,7 +74,7 @@ export default function TeamForm({ obj }) {
           }));
         }}
       />
-      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Team</Button>
+      <Button className="form-button button" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Team</Button>
     </Form>
   );
 }
