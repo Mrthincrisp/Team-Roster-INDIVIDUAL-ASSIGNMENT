@@ -21,7 +21,7 @@ export default function SearchBar({ handleSearch }) {
         <Col xs="auto">
           <Form.Control
             type="search"
-            placeholder="Search"
+            placeholder="Search by Name or Role"
             onChange={handleChange}
             value={searchInput}
           />

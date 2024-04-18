@@ -15,6 +15,9 @@ export default function TeamCard({ teamObj, onUpdate }) {
       <Card.Text>
         {teamObj.team_name}
       </Card.Text>
+      <Card.Text>
+        Creator: {teamObj.creator}
+      </Card.Text>
       <Link href={`/team/edit/${teamObj.firebaseKey}`} passHref>
         <Button variant="primary">Edit</Button>
       </Link>
@@ -31,6 +34,7 @@ TeamCard.propTypes = {
     team_name: PropTypes.string,
     firebaseKey: PropTypes.string,
     uid: PropTypes.string,
+    creator: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
