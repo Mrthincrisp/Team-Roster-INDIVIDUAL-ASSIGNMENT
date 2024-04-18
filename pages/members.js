@@ -30,14 +30,14 @@ function Home() {
   };
 
   return (
-    <div
-      className="text-center my-4"
-    >
-      <h1>{user.displayName}, here are the members of your teams. </h1>
-      <SearchBar handleSearch={handleSearch} />
-      <div className="d-flex flex-wrap">
+    <div className="home-container">
+      <h1 className="text"> Here are your members.</h1>
+      <div className="searchbar-container">
+        <SearchBar handleSearch={handleSearch} />
+      </div>
+      <div className="display-container">
         {filteredMembers.map((mem) => (
-          <MemberCard key={mem.firebaseKey} memberObj={mem} onUpdate={getAllMembers} />
+          <MemberCard className="card" key={mem.firebaseKey} memberObj={mem} onUpdate={getAllMembers} />
         ))}
       </div>
     </div>

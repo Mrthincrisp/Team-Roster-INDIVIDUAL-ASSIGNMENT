@@ -11,20 +11,22 @@ export default function TeamCard({ teamObj, onUpdate }) {
     }
   };
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Text>
-        {teamObj.team_name}
+    <Card style={{ width: '18rem' }} className="custom-card">
+      <Card.Text className="card-text">
+        <h4 className="text-card">{teamObj.team_name} </h4>
       </Card.Text>
-      <Card.Text>
+      <Card.Text className="card-text">
         Creator: {teamObj.creator}
       </Card.Text>
-      <Link href={`/team/edit/${teamObj.firebaseKey}`} passHref>
-        <Button variant="primary">Edit</Button>
-      </Link>
-      <Link href={`/team/${teamObj.firebaseKey}`} passHref>
-        <Button variant="primary">View</Button>
-      </Link>
-      <Button variant="danger" onClick={deleteThisTeam}>Delete</Button>
+      <div className="button-container">
+        <Link href={`/team/edit/${teamObj.firebaseKey}`} passHref>
+          <Button variant="primary" className="card-button button">Edit</Button>
+        </Link>
+        <Link href={`/team/${teamObj.firebaseKey}`} passHref>
+          <Button variant="primary" className="card-button button">View</Button>
+        </Link>
+        <Button variant="danger" onClick={deleteThisTeam} className="card-button button">Delete</Button>
+      </div>
     </Card>
   );
 }

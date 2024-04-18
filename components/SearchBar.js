@@ -18,7 +18,7 @@ export default function SearchBar({ handleSearch }) {
   return (
     <Form inline onSubmit={handleSubmit}>
       <Row>
-        <Col xs="auto">
+        <Col>
           <Form.Control
             type="search"
             placeholder="Search by Name or Role"

@@ -20,3 +20,104 @@ a {
 body {
   background-color: #050707;
 }
+
+.navbar__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; 
+  padding: 0;
+  list-style: none; 
+}
+
+.navbar__link {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none; 
+}
+
+.navbar__button {
+  background-color: #dc3545; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+.navbar__end {
+  margin-right: 10px; 
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchbar-container {
+  width: 33%;
+  margin-bottom: 20px; }
+
+  .display-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .card {
+    margin: 4px; 
+  }
+
+  .text{
+    color: white;
+    text-align: center;
+  }
+
+  .text-card{
+    color: black;
+    text-align: center;
+  }
+
+  .switch-text{
+    color: white;
+    margin: 10px;
+  }
+
+  .custom-form {
+    width: 75%; 
+    margin: 0 auto; 
+  }
+  
+  .form-input {
+    color: white; 
+    background-color: #343a40; 
+    border: none;
+  }
+  
+  .form-button {
+    margin: 10px; 
+  }
+
+.custom-card {
+  margin: 10px; 
+}
+
+.card-text {
+  margin-left: 5%; }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+  gap: 10px; 
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}

@@ -53,11 +53,11 @@ export default function MemberForm({ obj }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h3>{obj.firebaseKey ? 'Update' : 'Create'} Member</h3>
+    <Form className="custom-form" onSubmit={handleSubmit}>
+      <h3 className="text">{obj.firebaseKey ? 'Update' : 'Create'} Member</h3>
 
-      <Form.Group md="4" controlId="validationCustom01">
-        <Form.Label>Name</Form.Label>
+      <Form.Group controlId="validationCustom01">
+        <Form.Label className="text">Name</Form.Label>
         <Form.Control
           required
           type="text"
@@ -68,7 +68,7 @@ export default function MemberForm({ obj }) {
         />
       </Form.Group>
       <Form.Group md="4" controlId="validationCustom02">
-        <Form.Label>Picture</Form.Label>
+        <Form.Label className="text">Picture</Form.Label>
         <Form.Control
           required
           type="text"
@@ -80,7 +80,7 @@ export default function MemberForm({ obj }) {
       </Form.Group>
 
       <Form.Group md="4" controlId="validationCustom02">
-        <Form.Label>Role</Form.Label>
+        <Form.Label className="text">Role</Form.Label>
         <Form.Control
           required
           type="text"
@@ -93,7 +93,7 @@ export default function MemberForm({ obj }) {
       </Form.Group>
 
       <Form.Group md="4" controlId="validationCustom02">
-        <Form.Label>Team</Form.Label>
+        <Form.Label className="text">Team</Form.Label>
         <Form.Select
           required
           type="text"
@@ -115,7 +115,7 @@ export default function MemberForm({ obj }) {
           }
         </Form.Select>
       </Form.Group>
-      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
+      <Button className="form-button button" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
     </Form>
   );
 }
