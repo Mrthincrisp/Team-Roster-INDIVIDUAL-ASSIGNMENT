@@ -12,7 +12,7 @@ export default function ViewTeam() {
   useEffect(() => {
     viewTeamDetails(firebaseKey).then(setTeamDetails);
   }, [firebaseKey]);
-
+  console.warn(teamDetails);
   return (
     <>
       <div className="mt-5 d-flex flex-column align-items-center">
@@ -20,6 +20,7 @@ export default function ViewTeam() {
           <Card.Title>
             {teamDetails.team_name}
           </Card.Title>
+          <p>This team is set to {teamDetails.privacy ? 'Public' : 'Private'}</p>
         </div>
         <div className="d-flex flex-wrap justify-content-center">
           { teamDetails.member?.map((member) => (

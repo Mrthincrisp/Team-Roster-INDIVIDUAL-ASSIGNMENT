@@ -7,12 +7,12 @@ import { createTeam, getTeams, updateTeam } from '../../api/teamData';
 
 const initialState = {
   team_name: '',
-
+  privacy: true,
 };
 
 export default function TeamForm({ obj }) {
   const { user } = useAuth();
-  const [formInput, SetFormInput] = useState({ ...initialState, uid: user.uid });
+  const [formInput, SetFormInput] = useState({ ...initialState, uid: user.uid, creator: user.displayName });
   const [, setTeams] = useState([]);
   const router = useRouter();
 
@@ -59,6 +59,20 @@ export default function TeamForm({ obj }) {
           onChange={handleChange}
         />
       </Form.Group>
+
+      <Form.Check
+        type="switch"
+        id="privacy"
+        name="privacy"
+        label={formInput.privacy ? 'Public' : 'Private'}
+        checked={formInput.privacy}
+        onChange={(e) => {
+          SetFormInput((prevState) => ({
+            ...prevState,
+            privacy: e.target.checked,
+          }));
+        }}
+      />
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Team</Button>
     </Form>
   );
@@ -68,6 +82,7 @@ TeamForm.propTypes = {
   obj: PropTypes.shape({
     firebaseKey: PropTypes.string,
     team_name: PropTypes.string,
+    privacy: PropTypes.bool,
   }),
 };
 
