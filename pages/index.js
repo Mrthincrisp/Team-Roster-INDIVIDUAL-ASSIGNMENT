@@ -1,47 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { getTeams } from '../api/teamData';
 import { useAuth } from '../utils/context/authContext';
-import { getMembers } from '../api/memberData';
-import MemberCard from '../components/MemberCard';
-import SearchBar from '../components/SearchBar';
+import TeamCard from '../components/TeamCard';
 
-function Home() {
+export default function Team() {
   const { user } = useAuth();
-  const [members, setMembers] = useState([]);
-  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [teams, setTeams] = useState([]);
 
-  const getAllMembers = () => {
-    getMembers(user.uid).then((data) => {
-      setMembers(data);
-      setFilteredMembers(data);
-    });
+  const getAllTeams = () => {
+    getTeams(user.uid).then(setTeams);
   };
 
   useEffect(() => {
-    getAllMembers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getAllTeams();
   }, []);
 
-  const handleSearch = (searchInput) => {
-    const filtered = members.filter((member) => (
-      member.name.toLowerCase().includes(searchInput.toLowerCase())
-        || member.role.toLowerCase().includes(searchInput.toLowerCase())
-    ));
-    setFilteredMembers(filtered);
-  };
-
   return (
-    <div
-      className="text-center my-4"
-    >
-      <h1>{user.displayName}, here are the members of your team. </h1>
-      <SearchBar handleSearch={handleSearch} />
+    <>
+      <h1>{user.displayName}, here are the teams. </h1>
       <div className="d-flex flex-wrap">
-        {filteredMembers.map((mem) => (
-          <MemberCard key={mem.firebaseKey} memberObj={mem} onUpdate={getAllMembers} />
+        {teams.map((team) => (
+          <TeamCard key={team.firebaseKey} teamObj={team} onUpdate={getAllTeams} />
         ))}
       </div>
-    </div>
+    </>
   );
 }
-
-export default Home;
