@@ -20,12 +20,12 @@ export default function TeamForm({ obj }) {
     e.preventDefault();
     const payload = { ...formInput };
     if (obj.firebaseKey) {
-      updateTeam(payload).then(() => router.push('/team'));
+      updateTeam(payload).then(() => router.push('/'));
     } else {
       createTeam(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateTeam(patchPayload).then(() => {
-          router.push('/team');
+          router.push('/');
         });
       });
     }

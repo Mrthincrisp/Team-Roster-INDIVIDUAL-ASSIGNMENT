@@ -10,7 +10,6 @@ const initialState = {
   name: '',
   image: '',
   role: '',
-  team: '',
 };
 
 export default function MemberForm({ obj }) {
@@ -25,12 +24,12 @@ export default function MemberForm({ obj }) {
     e.preventDefault();
     const payload = { ...formInput };
     if (obj.firebaseKey) {
-      updateMember(payload).then(() => router.push('/'));
+      updateMember(payload).then(() => router.push('/members'));
     } else {
       createMember(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateMember(patchPayload).then(() => {
-          router.push('/');
+          router.push('/members');
         });
       });
     }
@@ -79,6 +78,7 @@ export default function MemberForm({ obj }) {
           onChange={handleChange}
         />
       </Form.Group>
+
       <Form.Group md="4" controlId="validationCustom02">
         <Form.Label>Role</Form.Label>
         <Form.Control
@@ -89,28 +89,31 @@ export default function MemberForm({ obj }) {
           value={formInput.role}
           onChange={handleChange}
         />
-        <option value="">Select a Team</option>
-        {
-            teams.map((team) => (
-              <option
-                key={team.firebaseKey}
-                value={team.firebaseKey}
-              >
-                {team.name}
-              </option>
-            ))
-          }
+
       </Form.Group>
+
       <Form.Group md="4" controlId="validationCustom02">
         <Form.Label>Team</Form.Label>
         <Form.Select
           required
           type="text"
-          placeholder="Enter image URL"
+          placeholder="Enter member's Role"
           name="team_id"
           value={formInput.team_id}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select a Team</option>
+          {
+            teams.map((team) => (
+              <option
+                key={team.firebaseKey}
+                value={team.firebaseKey}
+              >
+                {team.team_name}
+              </option>
+            ))
+          }
+        </Form.Select>
       </Form.Group>
       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
     </Form>

@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { deleteMember } from '../api/memberData';
-import memberAndTeamData from '../api/mergedData';
+import { memberAndTeamData } from '../api/mergedData';
 
 export default function MemberCard({ memberObj, onUpdate }) {
   const [teamAndMember, setTeamAndMember] = useState({});
