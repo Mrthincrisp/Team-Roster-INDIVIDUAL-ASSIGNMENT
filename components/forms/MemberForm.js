@@ -14,7 +14,6 @@ const initialState = {
 
 export default function MemberForm({ obj }) {
   const { user } = useAuth();
-  console.warn('User:', user);
   const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
   const [, setMember] = useState([]);
   const [teams, setTeams] = useState([]);

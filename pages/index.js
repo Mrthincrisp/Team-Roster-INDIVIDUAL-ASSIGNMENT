@@ -18,7 +18,7 @@ export default function Team() {
 
   return (
     <div className="home-container">
-      <h1 className="text"> Welcome, {user.displayName}! Here are your teams. </h1>
+      <h1 className="text"> Welcome, {user.displayName}! Here are your pantheons. </h1>
       <div className="display-container">
         {teams.map((team) => (
           <TeamCard className="card" key={team.firebaseKey} teamObj={team} onUpdate={getAllTeams} />
