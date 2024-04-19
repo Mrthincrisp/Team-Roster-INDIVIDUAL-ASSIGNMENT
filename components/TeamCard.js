@@ -10,13 +10,14 @@ export default function TeamCard({ teamObj, onUpdate }) {
       deleteTeamAndMembers(teamObj.firebaseKey).then(() => onUpdate());
     }
   };
+
   return (
     <Card style={{ width: '18rem' }} className="custom-card">
       <Card.Text className="card-text">
         <h4 className="text-card">{teamObj.team_name} </h4>
       </Card.Text>
       <Card.Text className="card-text">
-        Creator: {teamObj.creator}
+        Creator: {teamObj.uid}
       </Card.Text>
       <div className="button-container">
         <Link href={`/team/edit/${teamObj.firebaseKey}`} passHref>

@@ -29,6 +29,9 @@ export default function NavBar() {
             <Link passHref href="/team/new">
               <Nav.Link className="navbar__link">Create a Team</Nav.Link>
             </Link>
+            <Link passHref href="/publicTeams">
+              <Nav.Link className="navbar__link">Public Teams</Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

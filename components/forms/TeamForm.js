@@ -65,7 +65,7 @@ export default function TeamForm({ obj }) {
         type="switch"
         id="privacy"
         name="privacy"
-        label={formInput.privacy ? 'Public' : 'Private'}
+        label={!formInput.privacy ? 'Public' : 'Private'}
         checked={formInput.privacy}
         onChange={(e) => {
           SetFormInput((prevState) => ({

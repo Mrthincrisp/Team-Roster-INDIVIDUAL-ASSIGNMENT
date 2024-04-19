@@ -20,8 +20,10 @@ export default function MemberCard({ memberObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img src={memberObj.image} className="thumbnail-img" />
+    <Card style={{ width: '12rem' }}>
+      <div className="picture-container">
+        <Card.Img src={memberObj.image} className="picture" />
+      </div>
       <Card.Body>
         <Card.Title className="text-card">{memberObj.name}</Card.Title>
         <Card.Text>

@@ -76,6 +76,18 @@ const getTeamMembers = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getPublicTeams = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/team.json?orderBy="privacy"&equalTo=false`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 export {
   getTeams,
   deleteTeam,
@@ -83,4 +95,5 @@ export {
   createTeam,
   updateTeam,
   getTeamMembers,
+  getPublicTeams,
 };

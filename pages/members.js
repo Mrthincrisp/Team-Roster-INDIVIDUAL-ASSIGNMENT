@@ -11,8 +11,9 @@ function Home() {
 
   const getAllMembers = () => {
     getMembers(user.uid).then((data) => {
-      setMembers(data);
-      setFilteredMembers(data);
+      const sorted = data.sort((a, b) => a.team_id.localeCompare(b.team_id));
+      setMembers(sorted);
+      setFilteredMembers(sorted);
     });
   };
 
@@ -31,7 +32,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <h1 className="text"> Here are your members.</h1>
+      <h1 className="text"> Here are your gods.</h1>
       <div className="searchbar-container">
         <SearchBar handleSearch={handleSearch} />
       </div>

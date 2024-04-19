@@ -67,6 +67,7 @@ body {
   
   .card {
     margin: 4px; 
+    background-color: #ffffffde ;
   }
 
   .text{
@@ -119,5 +120,24 @@ body {
 
 .button:hover {
   background-color: black;
-  color: white;
+  color: rgb(255, 255, 255);
+}
+
+.picture-container {
+  display: flex;
+  justify-content: center; 
+}
+
+.picture {
+  width: 120px; /* Adjust as needed */
+  height: 120px; /* Adjust as needed */
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 2px solid #ffffff; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+}
+
+.picture:hover {
+  transform: scale(1.80); 
+  transition: transform 0.3s ease; 
 }
